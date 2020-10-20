@@ -25,8 +25,6 @@
   vars:
     ansible_become_pass: "{{ borgbackup_server_password | default(ansible_become_password) }}"
   delegate_to: "{{ borgbackup_client_backup_server }}"
-  # Start the delegate from the ansible master to avoid distributing more keys
-  connection: local
   authorized_key:
     user: "{{ borgbackup_server_user }}"
     key: "{{ borgbackup_client_ssh_pubkey_file.stdout }}"
@@ -36,8 +34,6 @@
   vars:
     ansible_become_pass: "{{ borgbackup_server_password | default(ansible_become_password) }}"
   delegate_to: "{{ borgbackup_client_backup_server }}"
-  # Start the delegate from the ansible master to avoid distributing more keys
-  connection: local
   file:
     path: "{{ borgbackup_server_pool }}/{{ inventory_hostname }}"
     owner: "{{ borgbackup_server_user }}"
