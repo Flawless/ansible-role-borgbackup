@@ -23,7 +23,7 @@
 
 - name: add ssh-pubkey to backup server
   vars:
-    ansible_become_pass: "{{ borgbackup_server_password | default(ansible_become_password) }}"
+    ansible_become_pass: "{{ borgbackup_server_password | default('') }}"
   delegate_to: "{{ borgbackup_client_backup_server }}"
   authorized_key:
     user: "{{ borgbackup_server_user }}"
@@ -32,7 +32,7 @@
 
 - name: create repo path for host
   vars:
-    ansible_become_pass: "{{ borgbackup_server_password | default(ansible_become_password) }}"
+    ansible_become_pass: "{{ borgbackup_server_password | default('') }}"
   delegate_to: "{{ borgbackup_client_backup_server }}"
   file:
     path: "{{ borgbackup_server_pool }}/{{ inventory_hostname }}"
